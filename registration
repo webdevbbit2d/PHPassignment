@@ -1,0 +1,83 @@
+<?php
+if(array_key_exists('email', $_POST) or array_key_exists('password',$_POST)){
+
+$link = mysqli_connect("localhost", "forms", "", "forms");
+
+if (mysqli_connect_error()) {
+        
+    die ("There was an error connecting to the database");
+    }
+
+    if($_POST['email'] == ''){
+    	echo"<p>Email address is requred.</p>";
+
+    }else if($_POST['password'] == ''){
+    	echo "<p>Password is required</p>";
+    }else if($_POST['First_name'] ==''){
+    	echo "<p>First name is required</p>";
+ }elseif($_POST['Last_name']==''){
+ 		echo "<p>Last name is required</p>";
+ }else if($_POST['username']==''){
+ 		echo "<p>The username is required</p>";
+ }else if($_POST['gender']==''){
+ 		echo "<p>Your gender is required</p>";
+ }else if($_POST['dob']==''){
+ 		echo "<p>The date of birth is required</p>";
+ }else if($_POST['Secret_word']==''){
+ 		echo "<p>input the secret word</p>";
+ }else{
+    	$query = "INSERT INTO 'form1'('password','FName','LName','username','gender','d.o.b','secret-word') VALUES ('".mysqli_real_escape_string($link,$_POST['password'])."','".mysqli_real_escape_string($link,$_POST['First_name'])."','".mysqli_real_escape_string($link,$_POST['Last_name'])."','".mysqli_real_escape_string($link,$_POST['username'])."',.'".mysqli_real_escape_string($link,$_POST['gender'])."','".mysqli_real_escape_string($link,$_POST['dob'])."'.'".mysqli_real_escape_string($link,$_POST['Secret_word'])."')";
+    	
+    	if(mysqli_query($link,$query)){
+    		echo "<p>you have been registered</p>";
+
+    	}else{
+    		echo "<p>There was a problem registering</p>";
+    	}
+    }
+}
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>RegistrationForm</title>
+	<style type="text/css">
+		body{
+			text-align: center;
+		}
+	</style>
+<head>
+<body>
+	<h3>REGISTRATION FORM</h3>
+	<form id="Registration" method="POST">
+		<label for="First_name">First Name</label><br/>
+		<input type="text" name="First_name" required="true" placeholder="Ian"/><br/>
+		<label for="Last_name">Last Name </label><br/>
+		<input type="text" name="Last_name" required="true" placeholder="Paul"/><br/>
+		<label for="Email">Email</label><br/>
+		<input type="Email" name="email" required="true" placeholder="example@domain.com"/><br/>
+		<label for="Username">Username</label><br/>
+		<input type="text" name="username" required="true" placeholder="Vortex"/><br/>
+		<label for="password">Password</label><br/>
+		<input type="password" name="password"/><br/>
+		<label for="gender">Gender</label><br/>
+		<input type="radio" name="gender" value="f" checked="true"/>Female <br/> 
+		<input type="radio" name="gender" value="f" checked="true"/>Male <br/>
+		<label for="dob">Date Of Birth </label><br/>
+		<input type="date" name="dob" required="true"/><br/>
+
+		<label for="year">Secret Word </label><br/>
+		<input type="text" name="Secret_word"/><br/>
+
+
+		<br/><br/>
+		<input type="submit" value="Save"/>
+
+	</form>
+
+
+
+</body>
+</html>
